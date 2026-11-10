@@ -1,0 +1,38 @@
+{
+  "name": "showrunner",
+  "version": "1.0.0",
+  "description": "Record polished product-demo videos from a declarative scenario: scripted headless Chrome, on-screen captions, a visible cursor, chapters, subtitles and an H.264 mp4.",
+  "type": "module",
+  "bin": {
+    "showrunner": "bin/showrunner.mjs"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "setup": "node bin/showrunner.mjs setup",
+    "doctor": "node bin/showrunner.mjs doctor",
+    "example": "node bin/showrunner.mjs run examples/hello/scenario.json --out examples/hello/out"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "demo",
+    "video",
+    "screen-recording",
+    "playwright",
+    "ffmpeg",
+    "product-demo",
+    "cursor-skill",
+    "automation"
+  ],
+  "license": "MIT",
+  "author": "Chetas P",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chetas-opsera/showrunner.git"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "playwright-core": "^1.50.0"
+  }
+}

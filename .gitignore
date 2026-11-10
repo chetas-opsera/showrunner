@@ -1,0 +1,8 @@
+node_modules/
+showrunner-out/
+examples/hello/out/
+.rec-*/
+.DS_Store
+.env
+.env.*
+*.log

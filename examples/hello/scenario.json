@@ -1,0 +1,49 @@
+{
+  "name": "orbit-demo",
+  "baseUrl": "site",
+  "viewport": { "width": 1280, "height": 720 },
+  "theme": "light",
+  "scenes": [
+    {
+      "name": "Title",
+      "steps": [
+        { "goto": "index.html" },
+        { "card": { "title": "Orbit", "text": "A product demo recorded entirely by Showrunner from one JSON file.", "hold": 3200 } }
+      ]
+    },
+    {
+      "name": "Landing page",
+      "steps": [
+        { "caption": { "title": "1 · The landing page", "text": "Captions explain what is on screen while the real page plays underneath.", "hold": 2600 } },
+        { "scroll": { "by": 420, "duration": 2000 } },
+        { "caption": { "title": "1 · Scroll, hover, click", "text": "A visible cursor and click ripple make every action easy to follow.", "hold": 1800 } },
+        { "hover": { "role": "link", "name": "Features" } },
+        { "scroll": { "by": -420, "duration": 1200 } }
+      ]
+    },
+    {
+      "name": "Using the app",
+      "steps": [
+        { "click": { "role": "link", "name": "/^open the app$/i" } },
+        { "caption": { "title": "2 · Typing, with real keystrokes", "text": "Selectors target roles and visible names, so scenarios survive restyling.", "position": "left", "hold": 1200 } },
+        { "type": { "into": { "label": "New task" }, "text": "Ship the demo video", "delay": 55 } },
+        { "press": "Enter" },
+        { "wait": 900 },
+        { "click": { "role": "checkbox", "name": "Done: Record the take" } },
+        { "wait": 800 },
+        { "caption": { "title": "2 · Tabs and filters", "text": "Only the open tasks remain after filtering.", "position": "left" } },
+        { "click": { "role": "tab", "name": "Open" } },
+        { "wait": 1800 },
+        { "click": { "role": "tab", "name": "Done" } },
+        { "wait": 1800 }
+      ]
+    },
+    {
+      "name": "Summary",
+      "steps": [
+        { "caption": null },
+        { "card": { "title": "That was one JSON file", "text": "Chapters, subtitles and an H.264 mp4 came out of the same run.", "items": ["Scenes and steps, no code", "Captions, cursor and ripple built in", "mp4 + .srt + chapters.json"], "hold": 3600, "keep": true } }
+      ]
+    }
+  ]
+}

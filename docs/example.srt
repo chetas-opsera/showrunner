@@ -1,0 +1,19 @@
+1
+00:00:05,465 --> 00:00:10,087
+1 · The landing page
+Captions explain what is on screen while the real page plays underneath.
+
+2
+00:00:10,087 --> 00:00:14,270
+1 · Scroll, hover, click
+A visible cursor and click ripple make every action easy to follow.
+
+3
+00:00:15,638 --> 00:00:23,412
+2 · Typing, with real keystrokes
+Selectors target roles and visible names, so scenarios survive restyling.
+
+4
+00:00:23,412 --> 00:00:29,729
+2 · Tabs and filters
+Only the open tasks remain after filtering.

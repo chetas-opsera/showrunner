@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Orbit - app</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><b>Orbit<i>.</i></b><nav><a href="index.html">Home</a><a href="index.html#features">Features</a><a class="on" href="app.html">Try it</a></nav></header>
+<main>
+  <h1>Today</h1>
+  <form id="f"><input id="t" type="text" aria-label="New task" placeholder="What needs doing?"><button class="btn" type="submit">Add task</button></form>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-f="all">All</button>
+    <button role="tab" aria-selected="false" data-f="open">Open</button>
+    <button role="tab" aria-selected="false" data-f="done">Done</button>
+  </div>
+  <ul class="tasks" id="list" data-testid="task-list"></ul>
+</main>
+<script>
+  const list = document.getElementById("list"); let filter = "all";
+  const tasks = [{ text: "Write the scenario", done: true }, { text: "Record the take", done: false }];
+  function draw() {
+    list.innerHTML = "";
+    tasks.filter((t) => filter === "all" || (filter === "done") === t.done).forEach((t) => {
+      const li = document.createElement("li"); li.className = t.done ? "done" : "";
+      const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = t.done; cb.setAttribute("aria-label", "Done: " + t.text);
+      cb.onchange = () => { t.done = cb.checked; draw(); };
+      const sp = document.createElement("span"); sp.textContent = t.text; li.append(cb, sp); list.append(li);
+    });
+  }
+  document.getElementById("f").onsubmit = (e) => { e.preventDefault(); const i = document.getElementById("t"); if (i.value.trim()) tasks.push({ text: i.value.trim(), done: false }); i.value = ""; draw(); };
+  document.querySelectorAll("[role=tab]").forEach((b) => b.onclick = () => { filter = b.dataset.f; document.querySelectorAll("[role=tab]").forEach((x) => x.setAttribute("aria-selected", x === b)); draw(); });
+  draw();
+</script>
+</body></html>

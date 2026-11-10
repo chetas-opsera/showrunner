@@ -6,7 +6,7 @@ Showrunner records polished product-demo videos from a declarative scenario file
 
 [![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-orange.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-339933)
-![Tests](https://img.shields.io/badge/tests-15%20passing-brightgreen)
+![Tests](https://img.shields.io/badge/tests-16%20passing-brightgreen)
 ![Output](https://img.shields.io/badge/output-mp4%20%2B%20srt%20%2B%20chapters-f59e0b)
 
 [![Watch the example](docs/poster.png)](docs/example.mp4)
@@ -188,7 +188,7 @@ Small on purpose: about 500 lines of plain ESM, one runtime dependency (`playwri
 ## Development
 
 ```bash
-npm test     # 15 tests, ~20 s: unit tests + real-browser end-to-end (skipped if Chrome is missing)
+npm test     # 16 tests, ~20 s: unit tests + real-browser end-to-end (skipped if Chrome is missing)
 ```
 
 ## License

@@ -1,4 +1,4 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 import test from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync } from "node:fs";
@@ -93,4 +93,14 @@ test("ffmpeg arguments produce a universally playable mp4", () => {
   for (const f of ["libx264", "yuv420p", "+faststart", "-an"]) assert.ok(a.includes(f), f);
   assert.deepEqual(a.slice(-1), ["out.mp4"]);
   assert.ok(sheetArgs("v.mp4", "s.png", { every: 5, cols: 3, rows: 2 }).join(" ").includes("fps=1/5,scale=480:-1,tile=3x2"));
+});
+
+test("license hygiene: no source file imports the GPL-licensed ffmpeg-static package", async () => {
+  const { readdirSync, readFileSync } = await import("node:fs");
+  const files = [...readdirSync("src").map((f) => `src/${f}`), "bin/showrunner.mjs"];
+  for (const f of files) {
+    const code = readFileSync(f, "utf8");
+    assert.doesNotMatch(code, /\b(import|require)\s*\(?\s*["']ffmpeg-static["']/, `${f} must not import ffmpeg-static (GPL); locate the binary by path instead`);
+    assert.doesNotMatch(code, /from\s+["']ffmpeg-static["']/, f);
+  }
 });

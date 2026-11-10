@@ -1,4 +1,4 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 // Runs INSIDE every page (via context.addInitScript). Self-contained on purpose: it is serialised with
 // Function.prototype.toString, so it must not reference anything outside its own body.
 // It draws captions, title cards and a fake cursor with a click ripple, so the recording shows what the

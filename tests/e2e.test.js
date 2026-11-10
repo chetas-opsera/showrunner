@@ -1,4 +1,4 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 // Real-browser tests. Skipped (not failed) when Chrome or ffmpeg is unavailable.
 import test from "node:test";
 import assert from "node:assert/strict";

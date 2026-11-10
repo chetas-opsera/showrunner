@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 import { existsSync, readdirSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join, resolve } from "node:path";

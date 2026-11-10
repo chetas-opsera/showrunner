@@ -1,12 +1,21 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 // ffmpeg helpers: locate a binary, build argument lists (pure, unit-tested), run it.
 import { spawnSync } from "node:child_process";
+import { createRequire } from "node:module";
+import { dirname, join } from "node:path";
 
-/** Order: $FFMPEG, the bundled ffmpeg-static binary, then `ffmpeg` on PATH. Returns null if none works. */
+/**
+ * Order: $FFMPEG, an `ffmpeg-static` binary if one was installed, then `ffmpeg` on PATH. Returns null if none works.
+ * The bundled binary is located by file path only: its JavaScript is never imported, and the binary runs as a
+ * separate process. ffmpeg-static is GPL-3.0-or-later; keeping it at arm's length keeps this project's license separate.
+ */
 export async function findFfmpeg(env = process.env) {
   const candidates = [];
   if (env.FFMPEG) candidates.push(env.FFMPEG);
-  try { const m = await import("ffmpeg-static"); if (m.default) candidates.push(m.default); } catch { /* optional dependency */ }
+  try {
+    const dir = dirname(createRequire(import.meta.url).resolve("ffmpeg-static/package.json"));
+    candidates.push(join(dir, process.platform === "win32" ? "ffmpeg.exe" : "ffmpeg"));
+  } catch { /* optional dependency not installed */ }
   candidates.push("ffmpeg");
   for (const c of candidates) {
     const r = spawnSync(c, ["-version"], { encoding: "utf8" });

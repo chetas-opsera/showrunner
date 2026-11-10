@@ -4,7 +4,7 @@
 
 Showrunner records polished product-demo videos from a declarative scenario file. It drives a real, headless Chrome through your app with a **visible cursor and click ripple**, lays **captions and title cards** over the page, and hands you an **H.264 `.mp4`**, a **`.srt` subtitle file** and **chapter timestamps**, from one `showrunner run`.
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-orange.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D18-339933)
 ![Tests](https://img.shields.io/badge/tests-15%20passing-brightgreen)
 ![Output](https://img.shields.io/badge/output-mp4%20%2B%20srt%20%2B%20chapters-f59e0b)
@@ -29,7 +29,7 @@ Product demos are usually either a screen recording of you fumbling through the 
 
 ## Install
 
-Requirements: **Node 18+** and **Google Chrome** (or any Chromium via `executablePath`). ffmpeg is bundled through `ffmpeg-static`.
+Requirements: **Node 18+** and **Google Chrome** (or any Chromium via `executablePath`). ffmpeg is installed alongside as the optional dependency `ffmpeg-static` (a GPL-3.0-or-later binary that Showrunner runs as a separate program; it is not part of this repository). Or point `FFMPEG` at your own.
 
 ```bash
 git clone https://github.com/chetas-opsera/showrunner.git
@@ -174,7 +174,7 @@ showrunner doctor
 
 ## Design
 
-Small on purpose: about 500 lines of plain ESM, two dependencies (`playwright-core`, `ffmpeg-static`). See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how recording, the overlay, timing and encoding work, and why.
+Small on purpose: about 500 lines of plain ESM, one runtime dependency (`playwright-core`) plus an optional ffmpeg binary. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how recording, the overlay, timing and encoding work, and why.
 
 ## Limitations
 
@@ -193,4 +193,29 @@ npm test     # 15 tests, ~20 s: unit tests + real-browser end-to-end (skipped if
 
 ## License
 
-[MIT](LICENSE). Copyright (c) 2026 Chetas P. All rights reserved except as granted by the license.
+**Showrunner is source-available, not open source.** It is licensed under the
+[PolyForm Noncommercial License 1.0.0](LICENSE): you may use, modify and share it for **any noncommercial purpose**
+(personal use, research, study, hobby projects, and use by charities, schools, public research bodies and government
+institutions). **Commercial use requires a separate license.**
+
+- Keep the license text (or its URL) and the `Required Notice:` line from [`LICENSE`](LICENSE) in every copy you share.
+- You may not sublicense or transfer your rights.
+- Your rights end if you break the terms and do not fix it within 32 days of written notice (see the license).
+- Fair-use and other statutory rights are not affected.
+
+**Need a commercial license?** Open an issue titled "Commercial license" on this repository, or contact
+[@chetas-opsera](https://github.com/chetas-opsera) on GitHub. Terms are agreed case by case.
+
+**License history.** Commits up to and including `699ffd3` were published under the MIT License, and anyone who
+received those copies keeps the MIT rights to them. Everything after that commit is PolyForm Noncommercial 1.0.0 only.
+See [LICENSE-HISTORY.md](LICENSE-HISTORY.md).
+
+**Contributions.** By submitting a contribution you confirm you have the right to do so and agree it is licensed under
+these same terms.
+
+**Third-party software** keeps its own license: see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+**Your recordings.** Videos you make with Showrunner are yours. The license covers the software, not its output. You remain responsible for what appears in them: use synthetic or consented data (see [SECURITY.md](SECURITY.md)).
+
+*This is not legal advice. If you rely on this software commercially, or are unsure whether your use is
+noncommercial, get the question reviewed by a lawyer or ask first.*

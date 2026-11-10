@@ -1,4 +1,4 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 // `showrunner probe <url>`: list what a scenario can target on a page, as ready-to-paste target objects.
 // Authoring scenarios blind is the slow part; this turns "which selector?" into a copy-paste.
 import { chromium } from "playwright-core";

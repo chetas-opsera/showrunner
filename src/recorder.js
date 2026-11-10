@@ -1,4 +1,4 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 // Plays a validated scenario in a real (headless) Chrome with video recording on, and returns the artefacts.
 import { chromium } from "playwright-core";
 import { mkdirSync, mkdtempSync, renameSync, rmSync, writeFileSync } from "node:fs";

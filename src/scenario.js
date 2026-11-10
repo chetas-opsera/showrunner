@@ -1,4 +1,4 @@
-// Showrunner - Copyright (c) 2026 Chetas P. MIT License.
+// Showrunner - Copyright (c) 2026 Chetas P. PolyForm Noncommercial 1.0.0.
 // Scenario loading, validation and small pure helpers. No browser, no I/O beyond reading the scenario file.
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";

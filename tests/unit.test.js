@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { expandEnv, loadScenario, parseMatcher, resolveBase, resolveUrl, srtTime, toSrt, validate } from "../src/scenario.js";
 import { mp4Args, sheetArgs } from "../src/encode.js";
+import { trimIdleArgs } from "../src/trim.js";
 
 const ok = () => ({ scenes: [{ name: "a", steps: [{ goto: "/x" }] }] });
 
@@ -93,6 +94,12 @@ test("ffmpeg arguments produce a universally playable mp4", () => {
   for (const f of ["libx264", "yuv420p", "+faststart", "-an"]) assert.ok(a.includes(f), f);
   assert.deepEqual(a.slice(-1), ["out.mp4"]);
   assert.ok(sheetArgs("v.mp4", "s.png", { every: 5, cols: 3, rows: 2 }).join(" ").includes("fps=1/5,scale=480:-1,tile=3x2"));
+});
+
+test("trimIdleArgs uses mpdecimate and re-encodes to mp4", () => {
+  const a = trimIdleArgs("in.mp4", "out.mp4");
+  assert.ok(a.join(" ").includes("mpdecimate"));
+  assert.deepEqual(a.slice(-1), ["out.mp4"]);
 });
 
 test("license hygiene: no source file imports the GPL-licensed ffmpeg-static package", async () => {

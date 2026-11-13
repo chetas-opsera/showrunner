@@ -15,6 +15,8 @@ Usage
   showrunner probe <url> [--json]         list clickable/typeable targets on a page
   showrunner sheet <video> [--every S] [--cols N] [--rows N] [--out FILE]
                                           contact sheet of frames, for reviewing a take
+  showrunner trim <video> [--out FILE] [--hi N] [--lo N]
+                                          shorten loading-heavy takes (drops near-static frames)
   showrunner setup                        download the recorder's ffmpeg (one time)
   showrunner doctor                       check Node, Chrome, ffmpeg
 
@@ -22,6 +24,7 @@ Options
   --fast     quarter-speed waits: a quick dry run to catch broken selectors
   --strict   exit 1 if any scene had a failing step (CI)
   --headed   show the browser window while recording
+  --trim-idle after mp4 encode, run trim to drop long static stretches
 `;
 
 function parse(argv) {
@@ -51,6 +54,16 @@ switch (cmd) {
     const t = Date.now();
     let r;
     try { r = await record(sc, { outDir, fast: !!flags.fast, headed: !!flags.headed, mp4: !flags["no-mp4"] }); } catch (e) { fail(e.message); }
+    if (flags["trim-idle"] && r.mp4) {
+      const { trimIdle } = await import("../src/trim.js");
+      const ff = await findFfmpeg();
+      if (!ff) fail("trim-idle needs ffmpeg");
+      const trimmed = r.mp4.replace(/\.mp4$/, ".trimmed.mp4");
+      trimIdle(ff, r.mp4, trimmed);
+      const { renameSync } = await import("node:fs");
+      renameSync(trimmed, r.mp4);
+      console.log(`  trimmed:  ${r.mp4} (idle frames collapsed)`);
+    }
     console.log(`\nrecorded ${r.seconds.toFixed(0)}s of video in ${((Date.now() - t) / 1000).toFixed(0)}s`);
     console.log(`  video:    ${r.mp4 || r.webm}`);
     console.log(`  chapters: ${join(outDir, sc.name + ".chapters.json")}`);
@@ -80,6 +93,16 @@ switch (cmd) {
         for (const x of r[k]) console.log("  " + (typeof x === "string" ? JSON.stringify(x) : JSON.stringify(x)));
       }
     }
+    break;
+  }
+  case "trim": {
+    if (!pos[0]) fail(HELP, 2);
+    const ff = await findFfmpeg();
+    if (!ff) fail("no ffmpeg found (run `npm install`)");
+    const { trimIdle } = await import("../src/trim.js");
+    const out = flags.out || pos[0].replace(/\.[^.]+$/, "") + ".trimmed.mp4";
+    trimIdle(ff, resolve(pos[0]), resolve(out), { hi: Number(flags.hi || 768), lo: Number(flags.lo || 320) });
+    console.log(out);
     break;
   }
   case "sheet": {

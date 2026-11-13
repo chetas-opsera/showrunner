@@ -27,9 +27,14 @@ The user wants a video of a **web UI** that you can open in a browser: a product
    about a quarter of the real length. Fix every reported step before the real take.
 6. **Record the real take** (`showrunner run s.json --out out`). It runs in real time, so start it in the background
    and wait for it; do not block a tool call for minutes.
-7. **Review the frames.** `showrunner sheet out/<name>.mp4 --every 5`, then open the PNG. Look for: caption covering the
+   For long server jobs (indexing, generation), use a high scenario `timeout` (e.g. `2400000`) and `waitFor` on the
+   **documented finish signal**, not marketing copy on the home page. **Resume existing projects** with `goto`
+   `/projects/<id>` or `/migration/<id>` — do not create new records unless the user asks.
+7. **Shorten loading** after the take: `showrunner trim out/<name>.mp4` or `showrunner run … --trim-idle` (drops
+   near-static frames with ffmpeg `mpdecimate`). Re-check duration with `ffmpeg -i`.
+8. **Review the frames.** `showrunner sheet out/<name>.mp4 --every 5`, then open the PNG. Look for: caption covering the
    subject (use `"position": "left"`), a scene that errored, popups or tours leaking in, the wrong theme.
-8. **Report** the path, duration, resolution, the scene list, and anything that did not work. Do not commit or push the
+9. **Report** the path, duration, resolution, the scene list, and anything that did not work. Do not commit or push the
    video unless asked.
 
 ## Traps that cost real time
